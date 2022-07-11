@@ -25,6 +25,21 @@ export default class Order {
     return this._items;
   }
 
+  changeCustomerId(customerId: string) { 
+    this._customerId = customerId; 
+    this.validate;
+  }
+
+  addItem(item: OrderItem) {
+    this._items.push(item);
+    this.calculateTotal();
+}
+
+  removeItem(itemId: string) {
+      this._items.splice(this._items.findIndex(x => x.id == itemId),1);
+      this.calculateTotal();
+  }
+
   validate(): boolean {
     if (this._id.length === 0) {
       throw new Error("Id is required");
@@ -44,6 +59,10 @@ export default class Order {
   }
 
   total(): number {
-    return this._items.reduce((acc, item) => acc + item.price, 0);
+    return this._items.reduce((acc,item) => acc + item.getTotal(),0);
   }
+
+  calculateTotal() {
+    this._total = this._items.reduce((acc,item) => acc + item.getTotal(),0);
+}
 }

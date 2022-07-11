@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import { or } from "sequelize/types";
 import Order from "../../../../domain/checkout/entity/order";
 import OrderItem from "../../../../domain/checkout/entity/order_item";
 import Customer from "../../../../domain/customer/entity/customer";
@@ -218,12 +219,17 @@ describe("Order repository test", () => {
     const orderRepository = new OrderRepository();
     await orderRepository.create(order);
 
-    const updatedOrder = new Order("123", "456", [ordemItem2, ordemItem3]);
-    await orderRepository.update(updatedOrder);
+    order.changeCustomerId("456");
+    order.removeItem("1");
+    order.addItem(ordemItem2);
+    order.addItem(ordemItem3);
+
+    //const updatedOrder = new Order("123", "456", [ordemItem2, ordemItem3]);
+    await orderRepository.update(order);
 
     const foundOrder = await orderRepository.find(order.id);       
 
-    expect(foundOrder).toEqual(updatedOrder);
+    expect(foundOrder).toEqual(order);
   });
 
 });

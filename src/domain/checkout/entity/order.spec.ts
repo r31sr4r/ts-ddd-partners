@@ -27,11 +27,11 @@ describe("Order unit tests", () => {
 
     let total = order.total();
 
-    expect(order.total()).toBe(100);
+    expect(order.total()).toBe(200);
 
     const order2 = new Order("o1", "c1", [item, item2]);
     total = order2.total();
-    expect(total).toBe(300);
+    expect(total).toBe(600);
   });
 
   it("should throw error if the item qte is less or equal zero 0", () => {

@@ -56,7 +56,9 @@ export default class OrderRepository implements OrderRepositoryInterface {
           },
           { where: { id: entity.id }, transaction: t }
         );
-      });
+      }
+      
+      );
     } catch (error) {
       throw new Error(`Error on update order. Details: ${error}`);
     }

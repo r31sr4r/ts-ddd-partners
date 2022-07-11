@@ -22,6 +22,6 @@ describe("Order service unit tets", () => {
 
     const total = OrderService.total([order, order2]);
 
-    expect(total).toBe(300);
+    expect(total).toBe(500);
   });
 });
